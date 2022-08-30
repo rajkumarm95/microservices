@@ -8,11 +8,17 @@ export class OrdersLibService {
     private ordersLibRepository: OrdersLibRepository,
     @Inject('BILLING') private billingClient: ClientProxy,
   ) {}
-  async fetchAllData() {
+  async fetchAllData(authentication: string) {
     await this.billingClient.emit(
       'order_created', // pattern
-      'emitted value from hello world', //payload (data)
+      { mes: 'emitted value from hello world', Authentication: authentication }, //payload (data)
     );
+    console.log('emitted');
+
     return this.ordersLibRepository.fetchAllData();
+  }
+
+  async fetchOneOrder(id: number) {
+    return this.ordersLibRepository.fetchOneOrder(id);
   }
 }

@@ -8,6 +8,7 @@ import { OrdersLib } from './entities/orders-lib.entity';
 import { OrdersLibRepository } from './orders-lib.repository';
 import { OrdersLibController } from './orders-lib.controller';
 import { CommonModule } from '@app/common';
+import { AuthModule } from 'apps/auth/src/auth.module';
 
 @Module({
   controllers: [OrdersLibController],
@@ -16,7 +17,8 @@ import { CommonModule } from '@app/common';
   imports: [
     CommonModule,
     TypeOrmModule.forFeature([OrdersLib]),
-    RabbitMqModule.register({ name: 'BILLING' }),
+    RabbitMqModule.register({ name: 'billing' }),
+    AuthModule,
   ],
 })
 export class OrdersLibModule {}

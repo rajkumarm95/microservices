@@ -1,11 +1,13 @@
 import { ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { AuthLibController } from './auth-lib.controller';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AuthLibService } from './auth-lib.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { UsersModule } from '@app/users';
+import { NestModule } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
 
 @Module({
   controllers: [AuthLibController],
@@ -23,4 +25,10 @@ import { UsersModule } from '@app/users';
     }),
   ],
 })
-export class AuthLibModule {}
+export class AuthLibModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    try {
+      consumer.apply(cookieParser()).forRoutes('*');
+    } catch (error) {}
+  }
+}

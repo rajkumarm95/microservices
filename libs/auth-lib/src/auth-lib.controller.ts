@@ -24,6 +24,8 @@ export class AuthLibController {
   @UseGuards(JwtAuthGuard)
   @MessagePattern('validate_user')
   async validateUser(@CurrentUser() user: User) {
+    console.log(user);
+
     return user;
   }
 }

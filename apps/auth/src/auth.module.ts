@@ -10,12 +10,13 @@ import { AuthLibModule } from 'libs/auth-lib/src';
 @Module({
   imports: [
     CommonModule,
-    RabbitMqModule,
+    RabbitMqModule.register({ name: 'auth' }),
     ConfigModule,
     AuthLibModule,
     JwtModule,
   ],
   controllers: [],
   providers: [AuthService],
+  exports: [RabbitMqModule],
 })
 export class AuthModule {}

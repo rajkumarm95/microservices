@@ -17,4 +17,8 @@ export class OrdersLibRepository {
   async fetchAllData() {
     return this.ordersLibRepository.find();
   }
+
+  async fetchOneOrder(id: number) {
+    return this.ordersLibRepository.findOne({ where: { id } });
+  }
 }
